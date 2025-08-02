@@ -19,12 +19,15 @@ class Product:
         
         
     def is_active(self):
+        """Getter function for active. Returns True if the product is active, otherwise False."""
         return self.active
 
     def get_quantity(self):
+        """Getter function for quantity. Returns the quantity (int)."""
         return self.quantity
 
     def set_quantity(self, quantity):
+        """Setter function for quantity. If quantity reaches 0, deactivates the product."""
         if quantity < 0:
             raise ValueError("Quantity cannot be negative")
 
@@ -32,16 +35,20 @@ class Product:
         return self.quantity
 
     def activate(self):
+        """Activates the product."""
         self.active = True
     
     def deactivate(self):
+        """Deactivates the product."""
         self.active = False
 
     def show(self):
+        """Prints a string that represents the product, for example:"""
         status = "Active" if self.active else "Inactive"
         print(f"{self.name}, Price: {self.price}, Quantity: {self.quantity}, Status: {status}")
 
     def buy(self, quantity):
+        """Buys a given quantity of the product. Returns the total price (float) of the purchase. Updates the quantity of the product. Handles errors."""
         if quantity <= 0:
             raise ValueError("Quantity must be positive")
         if not self.active:
@@ -58,16 +65,16 @@ class Product:
         return total
         
         
+def test():
+    bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
+    mac = Product("MacBook Air M2", price=1450, quantity=100)
 
-bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
-mac = Product("MacBook Air M2", price=1450, quantity=100)
+    print(bose.buy(50))
+    print(mac.buy(100))
+    print(mac.is_active())
 
-print(bose.buy(50))
-print(mac.buy(100))
-print(mac.is_active())
+    bose.show()
+    mac.show()
 
-bose.show()
-mac.show()
-
-bose.set_quantity(1000)
-bose.show()
+    bose.set_quantity(1000)
+    bose.show()
