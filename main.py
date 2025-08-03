@@ -61,6 +61,9 @@ def make_order(best_buy):
             if quantity <= 0:
                 print("Quantity must be greater than 0")
                 continue
+            if quantity > product.get_quantity():
+                print("We do not have that many in stock, please select a number lower or equal to our stock")
+                continue
 
             shopping_list.append((product, quantity))
             print(f"Added {quantity} x {product.name} to your order")
