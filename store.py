@@ -13,13 +13,22 @@ class Store:
         Initialize the store with a list of products.
         If no products are given, start with an empty list.
         """
-        self.products = [] if products is None else products.copy()
+        #self.products = [] if products is None else products.copy()
+        if products is None:
+            self.products = []
+        else:
+            for product in products:
+                if not isinstance(product, Product):
+                    raise TypeError("All items in products list must be Product instances")
+            self.products = products.copy()
 
 
     def add_product(self, product):
         """Adds a product to the store."""
         if not isinstance(product, Product):
             raise TypeError("Only Product instances can be added to the store")
+        if product not in self.products:
+            self.products.append(product)
         self.products.append(product)
 
     def remove_product(self, product):
@@ -54,13 +63,3 @@ class Store:
 
 
 
-def test():
-    product_list = [Product("MacBook Air M2", price=1450, quantity=100),
-                    Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-                    Product("Google Pixel 7", price=500, quantity=250),
-                ]
-
-    best_buy = Store(product_list)
-    products = best_buy.get_all_products()
-    print(best_buy.get_total_quantity())
-    print(best_buy.order([(products[0], 1), (products[1], 2)]))
